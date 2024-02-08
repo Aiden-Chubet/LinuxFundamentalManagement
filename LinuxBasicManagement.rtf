@@ -1,0 +1,36 @@
+
+
+#Make directory at root
+
+pwd
+cd /
+sudo mkdir AutomatedDataProcessing
+sudo groupadd ADP
+
+#Make sysadmin user with sudo access
+
+sudo useradd -m -s /bin/bash -g ADP -G sudo sysadmin
+groups sysadmin
+id sysadmin
+sudo useradd -m -s /bin/bash -g ADP sailor1
+
+#Add sailor1 to sudo access then remove it and make sailor2
+
+sudo usermod -aG sudo sailor1
+sudo deluser sailor1 sudo 
+groups sailor1
+sudo useradd -m -s /bin/bash -g ADP sailor2
+groups sailor2
+
+#Change ownership of directory and group access
+
+sudo chown sysadmin AutomatedDataProcessing
+stat AutomatedDataProcessing
+sudo chown sysadmin.ADP /AutomatedDataProcessing
+sudo chmod 1770 /AutomatedDataProcessing
+
+#Create .txt file and change ownership
+
+sudo nano /AutomatedDataProcessing/nightlog.txt 
+sudo chown sysadmin.ADP /AutomatedDataProcessing/nightlog.txt 
+sudo chmod  740 /AutomatedDataProcessing/nightlog.txt 
